@@ -1,4 +1,4 @@
-<#macro mainLayout title>
+<#macro mainLayout title active>
     <!doctype html>
     <html lang="en">
     <head>
@@ -20,13 +20,13 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item <#if active == 1>active</#if>">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <#if active == 2>active</#if>">
                         <a class="nav-link" href="/settings">Settings</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <#if active == 3>active</#if>">
                         <a class="nav-link" href="/projects">Projects</a>
                     </li>
                 </ul>
