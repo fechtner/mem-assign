@@ -35,4 +35,9 @@ public class TemplateController {
         model.addAttribute("settings", settings);
         return "settings";
     }
+
+    @RequestMapping("/projects")
+    public String getProjectsPage() {
+        return "projects";
+    }
 }
