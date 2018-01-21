@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for REST endpoints.
+ */
 @RestController
 public class ApiController {
 
@@ -25,6 +28,10 @@ public class ApiController {
         this.memsourceService = memsourceService;
     }
 
+    /**
+     * Get project list.
+     * @return projects
+     */
     @RequestMapping(path = "/projects/data", method = RequestMethod.GET)
     @ResponseBody
     public List<Project> fetchProjects() {
@@ -33,6 +40,10 @@ public class ApiController {
         return memsourceService.getProjects(token);
     }
 
+    /**
+     * Handling authentication expception.
+     * @return repsonse with error message
+     */
     @ExceptionHandler(value = AuthenticationException.class)
     public ResponseEntity<String> authenticationErrorHandler() {
         return new ResponseEntity<>("Memsource authentication error.", HttpStatus.UNAUTHORIZED);

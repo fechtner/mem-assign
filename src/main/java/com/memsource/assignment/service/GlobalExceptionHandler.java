@@ -2,14 +2,15 @@ package com.memsource.assignment.service;
 
 import com.memsource.assignment.model.memsource.AuthenticationException;
 import com.memsource.assignment.model.memsource.MemsourceApiException;
-import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Main error handler.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
