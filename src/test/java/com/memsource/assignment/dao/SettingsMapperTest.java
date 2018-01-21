@@ -13,25 +13,27 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = TestConfig.class)
 public class SettingsMapperTest {
 
+    public static final int ID = 999;
+
     @Autowired
     private SettingsMapper mapper;
 
     @Test
     public void testCRUD() {
 
-        Settings fetchedSettings = mapper.fetch(1);
+        Settings fetchedSettings = mapper.fetch(ID);
         Assert.assertNull(fetchedSettings);
 
         // create
         Settings newSettings = new Settings();
-        newSettings.setId(1);
+        newSettings.setId(ID);
         newSettings.setUser("user name");
         newSettings.setPassword("user password");
         int insertObjects = mapper.insert(newSettings);
         Assert.assertEquals(1, insertObjects);
 
         // read
-        fetchedSettings = mapper.fetch(1);
+        fetchedSettings = mapper.fetch(ID);
         Assert.assertNotNull(fetchedSettings);
 
         Assert.assertEquals("user name", fetchedSettings.getUser());
@@ -41,8 +43,10 @@ public class SettingsMapperTest {
         fetchedSettings.setUser("user name2");
         fetchedSettings.setPassword("user password2");
 
-        mapper.update(fetchedSettings);
-        fetchedSettings = mapper.fetch(1);
+        int updatedRows = mapper.update(fetchedSettings);
+        Assert.assertEquals(1, updatedRows);
+
+        fetchedSettings = mapper.fetch(ID);
         Assert.assertEquals("user name2", fetchedSettings.getUser());
         Assert.assertEquals("user password2", fetchedSettings.getPassword());
 
@@ -50,7 +54,7 @@ public class SettingsMapperTest {
         int deletedObjects = mapper.delete(newSettings);
         Assert.assertEquals(1, deletedObjects);
 
-        fetchedSettings = mapper.fetch(1);
+        fetchedSettings = mapper.fetch(ID);
         Assert.assertNull(fetchedSettings);
     }
 }
