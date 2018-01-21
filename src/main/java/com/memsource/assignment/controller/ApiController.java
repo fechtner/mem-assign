@@ -2,13 +2,13 @@ package com.memsource.assignment.controller;
 
 import com.memsource.assignment.model.Project;
 import com.memsource.assignment.model.Settings;
+import com.memsource.assignment.model.memsource.AuthenticationException;
 import com.memsource.assignment.service.MemsourceService;
 import com.memsource.assignment.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +31,10 @@ public class ApiController {
         Settings settings = settingsService.getSettings();
         String token = memsourceService.getToken(settings.getUser(), settings.getPassword());
         return memsourceService.getProjects(token);
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ResponseEntity<String> authenticationErrorHandler() {
+        return new ResponseEntity<>("Memsource authentication error.", HttpStatus.UNAUTHORIZED);
     }
 }
